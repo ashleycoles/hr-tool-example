@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('prefix');
+            $table->integer('number');
+            $table->string('notes', 1000)->nullable();
+            // When naming foreignIds the rules are:
+            // The name of the model/table you're relating to (singular)
+            // lowercase
+            // _id on the end
+            $table->foreignId('contract_id')->nullable();
             $table->timestamps();
         });
     }
