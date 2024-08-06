@@ -8,4 +8,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/employees', [\App\Http\Controllers\EmployeeController::class, 'all']);
+Route::post('/employees', [\App\Http\Controllers\EmployeeController::class, 'create']);
+
 Route::get('/contracts', [\App\Http\Controllers\ContractController::class, 'all']);

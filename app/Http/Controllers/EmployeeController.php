@@ -19,4 +19,40 @@ class EmployeeController extends Controller
             'data' => $employees
         ]);
     }
+
+    public function create(Request $request)
+    {
+        // Exists allows us to check that a value exists within the database
+        //exists:tablename,columnname
+        $request->validate(
+            [
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'prefix' => 'required|string|max:255',
+                'number' => 'required|integer|min:0',
+                'notes' => 'string|max:1000',
+                'contract_id' => 'integer|exists:contracts,id'
+            ]
+        );
+
+        $employee = new Employee();
+        $employee->first_name = $request->first_name;
+        $employee->last_name = $request->last_name;
+        $employee->prefix = $request->prefix;
+        $employee->number = $request->number;
+        $employee->notes = $request->notes;
+        $employee->contract_id = $request->contract_id;
+
+        if ($employee->save()) {
+            return response()->json([
+                'message' => 'Employee created',
+                'success' => true
+            ], 201);
+        }
+
+        return response()->json([
+            'message' => 'Employee creation failed',
+            'success' => false
+        ], 500);
+    }
 }
