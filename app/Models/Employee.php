@@ -10,6 +10,8 @@ class Employee extends Model
 {
     use HasFactory;
 
+    public $hidden = ['created_at', 'updated_at', 'contract_id'];
+
     // Think carefully about what you call the relationship method. Should it be singular
     // or plural?
     // If it's singular, it returns BelongsTo
